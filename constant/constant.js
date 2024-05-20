@@ -1,5 +1,5 @@
-export const genderEnum = ['male', 'female', 'other'];
+export const genderEnum = ['MALE', 'FEMALE', 'OTHER'];
 
-export const roleEnum = ['admin', 'customer'];
+export const roleEnum = ['ADMIN', 'CUSTOMER'];
 
-export const statusEnum = ['active', 'inactive', 'suspended'];
+export const statusEnum = ['ACTIVE', 'INACTIVE', 'SUSPENDED'];
