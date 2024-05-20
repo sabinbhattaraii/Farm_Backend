@@ -1,5 +1,6 @@
 import { HttpStatus } from "../constant/constant.js";
 import { sendErrResponseByMsg } from "../middleware/errorMiddleware.js";
+import { throwError } from "../utils/throwError.js";
 import { Users } from "../models/schema/user.js";
 
 export async function createUserService(data, res) {
@@ -75,3 +76,44 @@ export async function deleteUserService(id) {
 
   return deletedRows;
 }
+
+export async function getSpecificAuthUser({ id }){
+  try {
+    const user = await Users.findByPk(id);
+    return user;
+  } catch (error) {
+    console.error("Error fetching user by ID:", error);
+    throw throwError({
+      statusCode: HttpStatus.BAD_REQUEST,
+      message: "Server Error",
+    });
+  }
+};
+
+export async function getMyProfile({ id }) {
+  try {
+    const user = await Users.findByPk(id);
+    return user;
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    throw throwError({
+      statusCode: HttpStatus.BAD_REQUEST,
+      message: "Server Error",
+    });
+  }
+};
+
+export async function getSpecificUserByAny(email) {
+    try {
+      const user = await User.findOne({
+        where: { email },
+      });
+      return user;
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        });
+    }
+};
