@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import { port,apiVersion } from './config/sconfig.js'
 // import apiRouter from ''
+import { sequelize } from './connectDb/dbPostgres.js';
 
 const app = express()
 
@@ -25,7 +26,13 @@ app.get('/',(req,res)=> {
 })
 
 const initApp = async() => {
+    console.log("Testing the database connection...");
     try {
+        await sequelize.authenticate();
+        console.log("Connection has been established successfully.");
+        /**
+         * Start the web server on the specified port.
+         */
         app.listen(port,() => {
             console.log(`Server is running at: http://localhost:${port}`);
         })
