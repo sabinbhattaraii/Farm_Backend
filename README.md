@@ -1,6 +1,6 @@
 # Farm_Backend
 
-# Make_migrations
-npm sequelize-cli init
-npm sequelize-cli migration:generate --name create-name
-npm sequelize-cli db:migrate
+ Make_migrations
+npx sequelize-cli init
+npx sequelize-cli migration:generate --name create-name
+npx sequelize-cli db:migrate
