@@ -1,9 +1,9 @@
 'use strict';
-const { genderEnum, roleEnum, statusEnum } = require("../../constant/constant.js");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const { genderEnum, roleEnum, statusEnum } = await import('../constant/constant.js');
     await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
