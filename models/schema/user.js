@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../connectDb/dbPostgres.js";
 import { genderEnum, roleEnum, statusEnum } from "../../constant/constant.js";
+import { TokenDatas } from "./token.js";
 
 export const Users = sequelize.define('Users', {
   id: {
@@ -59,4 +60,9 @@ export const Users = sequelize.define('Users', {
 }, {
   freezeTableName: true,
   timestamps: true,
+});
+
+Users.hasMany(TokenDatas, {
+  foreignKey: "userId",
+  as: "tokens",
 });

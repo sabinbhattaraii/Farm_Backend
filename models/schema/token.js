@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../connectDb/dbPostgres.js";
+import { sequelize } from "../../connectDb/dbPostgres.js";
+import { Users } from "./user.js"; // Ensure this path is correct
 
 export const TokenDatas = sequelize.define(
   "TokenData",
@@ -16,6 +17,10 @@ export const TokenDatas = sequelize.define(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
       validate: {
         notNull: { msg: "Please enter your userId" },
       },
@@ -47,3 +52,8 @@ export const TokenDatas = sequelize.define(
     timestamps: true,
   }
 );
+
+TokenDatas.belongsTo(Users, {
+  foreignKey: "userId",
+  as: "user",
+});
