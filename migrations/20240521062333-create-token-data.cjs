@@ -17,9 +17,15 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        validate: {
-          notNull: { msg: "Please enter your userId" },
+        references: {
+          model: 'Users', // Name of the Users table
+          key: 'id'
         },
+        validate: {
+          notNull: { msg: "Please enter your userId" }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       type: {
         allowNull: false,
