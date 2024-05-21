@@ -15,3 +15,10 @@ export const tokenTypes = {
     RESET_PASSWORD: "resetPassword",
     VERIFY_EMAIL: "verifEmail"
 };
+
+export const fromEmail = process.env.SMTP_MAIL
+export const fromPassword = process.env.SMTP_PASSWORD
+export const emailHost = process.env.SMTP_HOST;
+export const smtpPort = process.env.SMTP_PORT;
+export const verifEmailExpiryIn = process.env.VERIFY_EMAIL_EXPIRY_IN || "1d"
+export const emailName = process.env.EMAIL_NAME;
