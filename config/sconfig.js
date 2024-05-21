@@ -3,7 +3,8 @@ import { config } from "dotenv";
 config()
 
 export const port = process.env.PORT
-export const base_url = process.env.SERVER_BASE_URL || "localhost:8080";
+export const clientBaseUrl = process.env.ENVIRONMENT === "DEVELOPMENT" ? process.env.BASE_URL_DEVELOPMENT : process.env.ENVIRONMENT === "staging" ? process.env.BASE_URL_STAGING : process.env.ENVIRONMENT === "production" ? process.env.BASE_URL_PRODUCTION :  process.env.BASE_URL_DEVELOPMENT
+export const serverBaseUrl = process.env.SERVER_BASE_URL || "localhost:8080";
 export const apiVersion = process.env.API_VERSION
 
 export const secretKey = process.env.SECRET_KEY;
