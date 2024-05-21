@@ -43,7 +43,7 @@ export const TokenDatas = sequelize.define(
   },
   {
     freezeTableName: true,
-    tableName: "TokenDatas",
+    tableName: "TokenData",
     timestamps: true,
   }
 );
