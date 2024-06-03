@@ -153,3 +153,23 @@ export const loginUser = catchAsyncErrors(async (req, res) => {
         });
     }
 });
+
+//LogOut User
+export const logoutUser = catchAsyncErrors(async (req, res, next) => {
+    try {
+        console.log(req)
+        await tokenService.deleteSpecifiedTokenService({ id: req.token.tokenId })
+
+        successResponseData({
+            res,
+            message: "Logout successfully.",
+            statusCode: HttpStatus.OK
+        });
+    } catch (error) {
+        console.log("Error while Logging Out Users", error)
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        });
+    }
+});
