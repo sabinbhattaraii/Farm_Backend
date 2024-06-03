@@ -71,7 +71,7 @@ export const createAuthUser = catchAsyncErrors(async (req, res) => {
 });
 
 //Verify Email
-export const verifyEmail = catchAsyncErrors(async (req,res,next) => {
+export const verifyEmail = catchAsyncErrors(async (req, res, next) => {
     try {
         const id = req.info.userId;
         const tokenId = req.token.tokenId;
@@ -82,7 +82,7 @@ export const verifyEmail = catchAsyncErrors(async (req,res,next) => {
             id,
             body: {
                 isVerified: true,
-                password:passHashedPassword,
+                password: passHashedPassword,
             },
         });
         delete data._doc.password;
@@ -94,10 +94,62 @@ export const verifyEmail = catchAsyncErrors(async (req,res,next) => {
             data,
         })
     } catch (error) {
-        console.log("Error Verifying Users Email",error)
+        console.log("Error Verifying Users Email", error)
         throw throwError({
-            statusCode : HttpStatus.BAD_REQUEST,
-            message : "Server Error",
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
         })
+    }
+});
+
+//Login User
+export const loginUser = catchAsyncErrors(async (req, res) => {
+    try {
+        let email = req.body.email;
+        let password = req.body.password;
+        let user = await userService.getSpecificUserByAny({ email });
+
+        if (user === null) {
+            throw throwError({
+                message: "Please enter valid email or password.",
+                statusCode: HttpStatus.UNAUTHORIZED,
+            });
+        } else {
+            let isValidPassword = await comparePassword(password, user.password);
+            if (isValidPassword) {
+                let infoObj = { userId: user._id, role: user.role };
+                let token = await generateToken(infoObj, secretKey, expiryIn);
+
+                let data = {
+                    token: token,
+                    userId: user._id,
+                    type: tokenTypes.ACCESS,
+                    expiration: getTokenExpiryTime(token).toLocaleString(),
+                };
+                console.log(data)
+                await tokenService.createTokenService({ data });
+
+                successResponseData({
+                    res,
+                    message: "Login Successfully.",
+                    statusCode: HttpStatus.OK,
+                    data: {
+                        token: token,
+                        user: user,
+                    },
+                });
+            } else {
+                throw throwError({
+                    message: "Please enter valid email or password.",
+                    statusCode: HttpStatus.UNAUTHORIZED,
+                });
+            }
+        }
+    } catch (error) {
+        console.log("Error Logging Users", error)
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        });
     }
 });
