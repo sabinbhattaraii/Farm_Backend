@@ -69,3 +69,35 @@ export const createAuthUser = catchAsyncErrors(async (req, res) => {
         });
     }
 });
+
+//Verify Email
+export const verifyEmail = catchAsyncErrors(async (req,res,next) => {
+    try {
+        const id = req.info.userId;
+        const tokenId = req.token.tokenId;
+
+        const passHashedPassword = await hashPassword(req.body.password);
+
+        const data = await userService.updateUserService({
+            id,
+            body: {
+                isVerified: true,
+                password:passHashedPassword,
+            },
+        });
+        delete data._doc.password;
+        await tokenService.deleteSpecifiedTokenService({ id: tokenId });
+        successResponseData({
+            res,
+            message: "Email verified successfully.",
+            statusCode: HttpStatus.CREATED,
+            data,
+        })
+    } catch (error) {
+        console.log("Error Verifying Users Email",error)
+        throw throwError({
+            statusCode : HttpStatus.BAD_REQUEST,
+            message : "Server Error",
+        })
+    }
+});
