@@ -173,3 +173,43 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
         });
     }
 });
+
+
+//Update User Profile
+export let updateUserProfile = (profile) =>
+    catchAsyncErrors(async (req, res) => {
+        try {
+            let body = { ...req.body };
+
+            //if user is other than admin lets not allow him to change the role
+            if (!req.info.roles.includes("admin")) {
+                delete body.roles;
+            }
+
+            let id = profile === "myProfile" ? req.info.userId : req.params.id;
+            let user = await authService.getSpecificAuthUser({ id });
+            if (user) {
+                let data = await authService.updateSpecificAuthUserService({ id, body });
+                delete data._doc.password;
+                delete data._doc.email;
+                successResponseData({
+                    res,
+                    message: "User updated successfully.",
+                    statusCode: HttpStatus.CREATED,
+                    data,
+                });
+            } else {
+                throw throwError({
+                    message: "Could not found user.",
+                    statusCode: HttpStatus.NOT_FOUND,
+                });
+            }
+        } catch (error) {
+            console.log("Error while Updating the user profile", error)
+            throw throwError({
+                statusCode: HttpStatus.BAD_REQUEST,
+                message: "Server Error",
+            });
+        }
+
+    });
