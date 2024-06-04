@@ -179,17 +179,17 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
 export let updateUserProfile = (profile) =>
     catchAsyncErrors(async (req, res) => {
         try {
-            let body = { ...req.body };
+            const body = { ...req.body };
 
             //if user is other than admin lets not allow him to change the role
             if (!req.info.roles.includes("admin")) {
                 delete body.roles;
             }
 
-            let id = profile === "myProfile" ? req.info.userId : req.params.id;
-            let user = await authService.getSpecificAuthUser({ id });
+            const id = profile === "myProfile" ? req.info.userId : req.params.id;
+            const user = await userService.getSpecifiedUserService({ id });
             if (user) {
-                let data = await authService.updateSpecificAuthUserService({ id, body });
+                const data = await userService.updateUserService({ id, body });
                 delete data._doc.password;
                 delete data._doc.email;
                 successResponseData({
