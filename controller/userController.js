@@ -213,3 +213,49 @@ export let updateUserProfile = (profile) =>
         }
 
     });
+
+
+//Update Password
+export const updatePassword = catchAsyncErrors(async (req, res, next) => {
+    try {
+        //don't allow to update if previous and present password are same 
+        const id = req.info.userId;
+        const oldPassword = req.body.oldPassword;
+        const password = req.body.password;
+
+        const user = await userService.getSpecificAuthUser({ id });
+
+        const isOldPasswordMatches = await comparePassword(oldPassword, user.password)
+
+        if (!isOldPasswordMatches) {
+            throw throwError({ message: "Password doesn't match", statusCode: HttpStatus.UNAUTHORIZED })
+        }
+
+        const isPreviousCurrentPasswordSame = await comparePassword(password, user.password)
+        if (isPreviousCurrentPasswordSame) {
+            throw throwError({
+                message: 'Previous and Current Password are same', statusCode: HttpStatus.BAD_REQUEST
+            });
+
+        }
+
+        const body = { password: await hashPassword(password) };
+        const data = await userService.updateUserService({ id, body });
+        delete data._doc.password;
+
+        await tokenService.deleteAllTokenUser({ data: id })
+
+        successResponseData({
+            res,
+            message: "User password updated successfully.",
+            statusCode: HttpStatus.CREATED,
+            data,
+        })
+    } catch (error) {
+        console.log("Error while Updating the user's Password", error)
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        });
+    }
+});
