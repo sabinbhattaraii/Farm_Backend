@@ -373,3 +373,30 @@ export const resetUserPassword = catchAsyncErrors(async (req, res, next) => {
         });
     }
 })
+
+//Get All User
+export const getAllUser = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const find = {}
+
+        if (req.query.userId) {
+            find.userId = req.query.userId
+        }
+        if (req.query.email) {
+            find.email = { $regex: req.query.email, $options: "i" }
+        }
+        if (req.query.roles) {
+            find.roles = { $in: req.query.roles.split(",") }
+        }
+        req.find = find;
+        req.service = authService.getAllUserService;
+        req.myOwnSelect = "-password"
+        next();
+    } catch (error) {
+        console.log("Error Fetching all the users:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Error Fetching all the users:",
+        });
+    }
+})
