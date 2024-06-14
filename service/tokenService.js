@@ -4,30 +4,30 @@ import { TokenDatas } from "../models/token.js";
 import { throwError } from "../utils/throwError.js";
 
 export async function createTokenService(data, res) {
-  try{
+  try {
     const exisitngToken = await TokenDatas.findOne({
       where: { token: data.token },
     });
-    
+
     if (exisitngToken) {
       sendErrResponseByMsg(
         res,
         "TokenData with same token exists",
         HttpStatus.CONFLICT
-        );
-      }
-    
-      const savedToken = await TokenDatas.create(data);
-      
-      return savedToken;
-    } catch (error) {
-      console.error("Error Creating Token:",error);
-      throw throwError({
-            statusCode : HttpStatus.BAD_REQUEST,
-            message : "Server Error",
-          });
-        }
-      }
+      );
+    }
+
+    const savedToken = await TokenDatas.create(data);
+
+    return savedToken;
+  } catch (error) {
+    console.error("Error Creating Token:", error);
+    throw throwError({
+      statusCode: HttpStatus.BAD_REQUEST,
+      message: "Error Creating Token:",
+    });
+  }
+}
 
 export async function deleteSpecifiedTokenService(id) {
   try {
@@ -47,7 +47,10 @@ export async function deleteSpecifiedTokenService(id) {
     return { success: HttpStatus.OK, message: "Record deleted successfully" };
   } catch (error) {
     console.error(error);
-    return { success: HttpStatus.BAD_REQUEST, message: "Error deleting record" };
+    throw throwError({
+      success: HttpStatus.BAD_REQUEST,
+      message: "Error deleting record",
+    });
   }
 }
 
@@ -58,11 +61,11 @@ export async function deleteAllTokenUser(userId) {
       where: { userId },
     });
     return deletedRows;
-  } catch (error){
-    console.error("Error Deleting Token:",error);
+  } catch (error) {
+    console.error("Error Deleting Token:", error);
     throw throwError({
-      statusCode : HttpStatus.BAD_REQUEST,
-      message : "Server Error",
+      statusCode: HttpStatus.BAD_REQUEST,
+      message: "Error Deleting Token:",
     });
   }
 }
