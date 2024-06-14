@@ -65,7 +65,7 @@ export const createAuthUser = catchAsyncErrors(async (req, res) => {
         console.error("Error Registering User:", error);
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error Registering User:",
         });
     }
 });
@@ -94,10 +94,10 @@ export const verifyEmail = catchAsyncErrors(async (req, res, next) => {
             data,
         })
     } catch (error) {
-        console.log("Error Verifying Users Email", error)
+        console.log("Error Verifying Users Email:", error)
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error Verifying Users Email:",
         })
     }
 });
@@ -146,10 +146,10 @@ export const loginUser = catchAsyncErrors(async (req, res) => {
             }
         }
     } catch (error) {
-        console.log("Error Logging Users", error)
+        console.log("Error Logging Users:", error)
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error Logging Users:",
         });
     }
 });
@@ -166,10 +166,10 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
             statusCode: HttpStatus.OK
         });
     } catch (error) {
-        console.log("Error while Logging Out Users", error)
+        console.log("Error while Logging Out Users:", error)
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error while Logging Out Users:",
         });
     }
 });
@@ -205,10 +205,10 @@ export let updateUserProfile = (profile) =>
                 });
             }
         } catch (error) {
-            console.log("Error while Updating the user profile", error)
+            console.log("Error while Updating the user profile:", error)
             throw throwError({
                 statusCode: HttpStatus.BAD_REQUEST,
-                message: "Server Error",
+                message: "Error while Updating the user profile",
             });
         }
 
@@ -252,10 +252,10 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
             data,
         })
     } catch (error) {
-        console.log("Error while Updating the user's Password", error)
+        console.log("Error while Updating the user's Password:", error)
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error while Updating the user's Password:",
         });
     }
 });
@@ -276,7 +276,7 @@ export let userMyProfile = catchAsyncErrors(async (req, res) => {
         console.log("Error while reading the profile of the user:", error);
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error while reading the profile of the user:",
         })
     }
 });
@@ -326,7 +326,7 @@ export const forgetUserPassword = catchAsyncErrors(async (req, res, next) => {
         console.log("Error while Sending Forget Password Email:", error);
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error while Sending Forget Password Email:",
         })
     }
 });
@@ -369,7 +369,7 @@ export const resetUserPassword = catchAsyncErrors(async (req, res, next) => {
         console.log("Error During the Password Reset Of User:", error);
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error During the Password Reset Of User:",
         });
     }
 })
