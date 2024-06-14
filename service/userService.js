@@ -22,8 +22,17 @@ export async function createUserService(data, res) {
   return savedUser;
 }
 
-export async function getSpecifiedUserService(id) {
-  return Users.findByPk(id);
+export async function getSpecifiedUserService({id}) {
+  try {
+    const user = await Users.findByPk(id);
+    return user;
+  } catch (error) {
+    console.error("Error Fetching Specified User by ID:", error);
+    throw throwError({
+      statusCode: HttpStatus.BAD_REQUEST,
+      message: "Error Fetching Specified User by ID",
+    });
+  }
 }
 
 export function getAllUserService({
@@ -77,28 +86,15 @@ export async function deleteUserService(id) {
   return deletedRows;
 }
 
-export async function getSpecificAuthUser({ id }){
-  try {
-    const user = await Users.findByPk(id);
-    return user;
-  } catch (error) {
-    console.error("Error fetching user by ID:", error);
-    throw throwError({
-      statusCode: HttpStatus.BAD_REQUEST,
-      message: "Server Error",
-    });
-  }
-};
-
 export async function getMyProfile({ id }) {
   try {
     const user = await Users.findByPk(id);
     return user;
   } catch (error) {
-    console.error("Error fetching user profile:", error);
+    console.error("Error fetching user profile by Id:", error);
     throw throwError({
       statusCode: HttpStatus.BAD_REQUEST,
-      message: "Server Error",
+      message: "Error fetching user profile by Id",
     });
   }
 };
@@ -110,10 +106,10 @@ export async function getSpecificUserByAny(email) {
       });
       return user;
     } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Error fetching User By Email:", error);
         throw throwError({
             statusCode: HttpStatus.BAD_REQUEST,
-            message: "Server Error",
+            message: "Error fetching User By Email",
         });
     }
 };
