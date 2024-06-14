@@ -400,3 +400,32 @@ export const getAllUser = catchAsyncErrors(async (req, res, next) => {
         });
     }
 })
+
+//Get Specified User
+export const getSpecificUser = catchAsyncErrors(async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let data = await authService.getSpecificAuthUser({ id });
+        if (data) {
+
+            delete data._doc.password;
+            successResponseData({
+                res,
+                message: "Read user successfully.",
+                statusCode: HttpStatus.OK,
+                data,
+            })
+        } else {
+            throw throwError({
+                message: "Could'nt found user.",
+                statusCode: HttpStatus.NOT_FOUND,
+            });
+        }
+    } catch (error) {
+        console.log("Error fetching Specified User:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Error fetching Specified User:",
+        });
+    }
+});
