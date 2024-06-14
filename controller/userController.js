@@ -429,3 +429,40 @@ export const getSpecificUser = catchAsyncErrors(async (req, res, next) => {
         });
     }
 });
+
+//Delete User
+export const deleteSpecifiedUser = catchAsyncErrors(async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        if (id === req.info.userId) {
+            throw throwError({
+                message: "User can not delete himself/herself.",
+                statusCode: HttpStatus.UNAUTHORIZED,
+            });
+        }
+
+        let user = await userService.getSpecifiedUserService({ id });
+
+        if (user) {
+            let data = await userService.deleteUserService({ id });
+            delete data?._doc?.password
+            successResponseData({
+                res,
+                message: "User deleted successfully.",
+                statusCode: HttpStatus.OK,
+                data,
+            });
+        } else {
+            throw throwError({
+                message: "Couldn't found user.",
+                statusCode: HttpStatus.NOT_FOUND,
+            });
+        }
+    } catch (error) {
+        console.log("Error Deleting Specified User:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Error Deleting Specified User:",
+        })
+    }
+});
