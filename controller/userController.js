@@ -259,3 +259,16 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
         });
     }
 });
+
+//My Profile
+export let userMyProfile = catchAsyncErrors(async (req, res) => {
+    let id = req.info.userId;
+    let data = await userService.getMyProfile({ id });
+
+    successResponseData({
+        res,
+        message: "Profile read successfully.",
+        statusCode: HttpStatus.OK,
+        data,
+    });
+});
