@@ -272,3 +272,53 @@ export let userMyProfile = catchAsyncErrors(async (req, res) => {
         data,
     });
 });
+
+//Forget Password
+export const forgetUserPassword = catchAsyncErrors(async (req, res, next) => {
+    try {
+        //check email exist or not in database
+        let email = req.body.email;
+        let user = await userService.getSpecificUserByAny({ email })
+
+        if (!user) {
+            throw throwError({
+                message: "Email doesnot exists",
+                statusCode: HttpStatus.UNAUTHORIZED,
+            })
+        }
+
+        let infoObj = {
+            userId: user._id,
+        };
+        let token = await generateToken(infoObj, secretKey, reset_expiry_in)
+        console.log(token)
+
+        let tokenData = {
+            token: token,
+            userId: user._id,
+            type: tokenTypes.RESET_PASSWORD,
+            expiration: getTokenExpiryTime(token).toLocaleString()
+        };
+        await tokenService.createTokenService({ data: tokenData })
+
+        //to send email write code here
+        await sendEmailToForgotPassword({
+            email,
+            token,
+            firstName: user.firstName,
+            lastName: user.lastName
+        })
+
+        successResponseData({
+            res,
+            message: "Email sent successfully.",
+            statusCode: HttpStatus.OK,
+        });
+    } catch (error) {
+        console.log("Error while Sending Forget Password Email:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        })
+    }
+});
