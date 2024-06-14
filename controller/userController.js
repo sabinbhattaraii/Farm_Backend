@@ -330,3 +330,46 @@ export const forgetUserPassword = catchAsyncErrors(async (req, res, next) => {
         })
     }
 });
+
+//Reset User Password
+export const resetUserPassword = catchAsyncErrors(async (req, res, next) => {
+    try {
+        //validate the request
+        let id = req.info.userId;
+        let password = req.body.password;
+
+        let user = await userService.getSpecificAuthUser({ id });
+
+        // checking the user
+        if (!user) {
+            throw throwError({
+                message: "User does not exist",
+                statuscode: HttpStatus.UNAUTHORIZED,
+            })
+        }
+
+        let isPreviousCurrentPasswordSame = await comparePassword(password, user.password)
+        if (isPreviousCurrentPasswordSame) {
+            throw throwError({
+                message: "Previous and Current password are same.",
+                statusCode: HttpStatus.UNAUTHORIZED,
+            });
+        }
+
+        let body = { password: await hashPassword(password) }
+        await userService.updateUserService({ id, body })
+        await tokenService.deleteAllTokenUser({ userId: id })
+
+        successResponseData({
+            res,
+            message: "Password reset successfully.",
+            statusCode: HttpStatus.OK,
+        });
+    } catch (error) {
+        console.log("Error During the Password Reset Of User:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        });
+    }
+})
