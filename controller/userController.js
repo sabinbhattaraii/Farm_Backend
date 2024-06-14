@@ -223,7 +223,7 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
         const oldPassword = req.body.oldPassword;
         const password = req.body.password;
 
-        const user = await userService.getSpecificAuthUser({ id });
+        const user = await userService.getSpecifiedUserService({ id });
 
         const isOldPasswordMatches = await comparePassword(oldPassword, user.password)
 
@@ -338,7 +338,7 @@ export const resetUserPassword = catchAsyncErrors(async (req, res, next) => {
         let id = req.info.userId;
         let password = req.body.password;
 
-        let user = await userService.getSpecificAuthUser({ id });
+        let user = await userService.getSpecifiedUserService({ id });
 
         // checking the user
         if (!user) {
@@ -389,7 +389,7 @@ export const getAllUser = catchAsyncErrors(async (req, res, next) => {
             find.roles = { $in: req.query.roles.split(",") }
         }
         req.find = find;
-        req.service = authService.getAllUserService;
+        req.service = userService.getAllUserService;
         req.myOwnSelect = "-password"
         next();
     } catch (error) {
@@ -405,7 +405,7 @@ export const getAllUser = catchAsyncErrors(async (req, res, next) => {
 export const getSpecificUser = catchAsyncErrors(async (req, res, next) => {
     try {
         let id = req.params.id;
-        let data = await authService.getSpecificAuthUser({ id });
+        let data = await userService.getSpecifiedUserService({ id });
         if (data) {
 
             delete data._doc.password;
