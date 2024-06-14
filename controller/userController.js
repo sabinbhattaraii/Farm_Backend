@@ -262,15 +262,23 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
 
 //My Profile
 export let userMyProfile = catchAsyncErrors(async (req, res) => {
-    let id = req.info.userId;
-    let data = await userService.getMyProfile({ id });
+    try {
+        let id = req.info.userId;
+        let data = await userService.getMyProfile({ id });
 
-    successResponseData({
-        res,
-        message: "Profile read successfully.",
-        statusCode: HttpStatus.OK,
-        data,
-    });
+        successResponseData({
+            res,
+            message: "Profile read successfully.",
+            statusCode: HttpStatus.OK,
+            data,
+        });
+    } catch (error) {
+        console.log("Error while reading the profile of the user:", error);
+        throw throwError({
+            statusCode: HttpStatus.BAD_REQUEST,
+            message: "Server Error",
+        })
+    }
 });
 
 //Forget Password
