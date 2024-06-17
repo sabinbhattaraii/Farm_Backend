@@ -175,7 +175,7 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-//Update User Profile
+//Update User Profile by admin
 export let updateUserProfile = (profile) =>
     catchAsyncErrors(async (req, res) => {
         try {
