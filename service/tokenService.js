@@ -1,6 +1,6 @@
 import { HttpStatus } from "../constant/constant.js";
 import { sendErrResponseByMsg } from "../middleware/errorMiddleware.js";
-import { TokenDatas } from "../models/token.js";
+import { TokenDatas } from "../models/schema/token.js";
 import { throwError } from "../utils/throwError.js";
 
 export async function createTokenService(data, res) {
