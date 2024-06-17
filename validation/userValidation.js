@@ -2,7 +2,7 @@ import Joi from "joi";
 import { genderEnum, roleEnum, statusEnum } from "../constant/constant.js";
 
 const userValidationSchema = Joi.object({
-    id: Joi.number().integer().positive(),
+    // id: Joi.number().integer().positive(),
 
     name: Joi.string().regex(/^[a-zA-Z]*$/).min(1).max(255).required().messages({
         'string.empty': 'Name is required',
