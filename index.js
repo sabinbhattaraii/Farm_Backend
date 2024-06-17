@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import { port,apiVersion } from './config/sconfig.js'
-// import apiRouter from ''
+import apiRouter from './routes/index.js';
 import { sequelize } from './connectDb/dbPostgres.js';
 
 const app = express()
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
     extended : false
 }))
 
-// app.use(`${apiVersion}`,apiRouter)
+app.use(`${apiVersion}`,apiRouter)
 
 app.get('/',(req,res)=> {
     res.send('HomePage')
