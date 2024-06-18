@@ -21,48 +21,48 @@ userRouter
     .route("/register")
     .post(validation(userValidationSchema), userController.createAuthUser);
 
-authRouter
+userRouter
     .route("/verify-email")
     .patch(validation(verifyValidationSchema), isValidToken, userController.verifyEmail);
 
-authRouter
+userRouter
     .route("/login")
     .post(validation(loginvalidationSchem), userController.loginUser);
 
-authRouter
+userRouter
     .route("/logout")
     .post(validation(logoutValidationSchema), isValidToken, userController.logoutUser)
 
-authRouter
+userRouter
     .route('/')
     .get(isValidToken, userController.getAllUser, sortFilterPagination)
 
-authRouter
+userRouter
     .route("/my-profile")
     .get(isValidToken, userController.userMyProfile)
 
-authRouter
+userRouter
     .route("/update-profile")
     .patch(validation(updateProfileValidationSchema), isValidToken, userController.updateUserProfile("myProfile"));
 
-authRouter
+userRouter
     .route("/update-password")
     .patch(validation(updatePasswordValidationSchema), isValidToken, userController.updatePassword)
 
 
-authRouter
+userRouter
     .route("/forget-password")
     .post(validation(forgetPasswordValidationSchema), userController.forgetUserPassword);
 
-authRouter
+userRouter
     .route("/reset-password")
     .post(validation(resetPasswordValidationSchema), isValidToken, userController.resetUserPassword);
 
-authRouter
+userRouter
     .route("/delete/:id")
     .post(isValidToken, userController.deleteSpecifiedUser);
 
-authRouter
+userRouter
     .route("/update/:id")
     .patch(
         validation(updateUserByAdminValidationSchema),
@@ -71,7 +71,7 @@ authRouter
         userController.updateUserProfile()
     );
 
-authRouter
+userRouter
     .route('/:id')
     .get(isValidToken, isAuthorized([roleEnum.ADMIN]), userController.getSpecificUser)
 
