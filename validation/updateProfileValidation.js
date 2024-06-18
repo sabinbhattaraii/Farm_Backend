@@ -7,7 +7,7 @@ const updateprofileValidationSchema = Joi.object({
         'string.min': 'Name should have a minimum length of 1 character',
         'string.max': 'Name should have a maximum length of 255 characters'
     }),
-    gender: Joi.string().valid(...Object.values(genderEnumm)).default(genderEnum.MALE).messages({
+    gender: Joi.string().valid(...Object.values(genderEnum)).messages({
         'any.only': 'Gender must be one of the allowed values'
     }),
     phone: Joi.string().allow(null, '').pattern(/^[0-9]*$/).messages({
