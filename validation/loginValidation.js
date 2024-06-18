@@ -19,4 +19,4 @@ const loginValidationSchema = Joi.object()
     })
     .unknown(false);
 
-export default loginValidationSchema; unknown
+export default loginValidationSchema;
