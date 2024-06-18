@@ -20,11 +20,11 @@ const userValidationSchema = Joi.object({
         'string.min': 'Password should have a minimum length of 8 characters'
     }),
 
-    gender: Joi.string().valid(...Object.values(genderEnum)).default(genderEnum.MALE).messages({
+    gender: Joi.array().items(Joi.string().valid(...Object.values(genderEnum))).messages({
         'any.only': 'Gender must be one of the allowed values'
     }),
 
-    role: Joi.string().valid(...Object.values(roleEnum)).default(roleEnum.CUSTOMER).messages({
+    role: Joi.string().valid(...Object.values(roleEnum)).messages({
         'any.only': 'Role must be one of the allowed values'
     }),
 
@@ -40,7 +40,7 @@ const userValidationSchema = Joi.object({
         'string.uri': 'Profile picture must be a valid URI'
     }),
 
-    status: Joi.string().valid(...Object.values(statusEnum)).default(statusEnum.ACTIVE).messages({
+    status: Joi.string().valid(...Object.values(statusEnum)).messages({
         'any.only': 'Status must be one of the allowed values'
     }),
 
