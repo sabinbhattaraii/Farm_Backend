@@ -62,7 +62,7 @@ export const Users = sequelize.define('Users', {
   timestamps: true,
 });
 
-Users.hasMany(TokenDatas, {
-  foreignKey: "userId",
-  as: "tokens",
-});
+// Users.hasMany(TokenDatas, {
+//   foreignKey: "userId",
+//   as: "tokens",
+// });

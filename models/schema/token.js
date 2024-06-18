@@ -53,7 +53,7 @@ export const TokenDatas = sequelize.define(
   }
 );
 
-TokenDatas.belongsTo(Users, {
-  foreignKey: "userId",
-  as: "user",
-});
+// TokenDatas.belongsTo(Users, {
+//   foreignKey: "userId",
+//   as: "user",
+// });

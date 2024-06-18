@@ -4,6 +4,7 @@ import cors from 'cors'
 import { port,apiVersion } from './config/sconfig.js'
 import apiRouter from './routes/index.js';
 import { sequelize } from './connectDb/dbPostgres.js';
+import "./models/schema/associations.js";
 
 const app = express()
 
@@ -33,6 +34,7 @@ const initApp = async() => {
         /**
          * Start the web server on the specified port.
          */
+        await sequelize.sync({ alter: true });
         app.listen(port,() => {
             console.log(`Server is running at: http://localhost:${port}`);
         })
