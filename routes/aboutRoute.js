@@ -12,7 +12,7 @@ const aboutUsRouter = Router();
 
 aboutUsRouter
     .route("/create")
-    .post(validation(aboutUsValidationsSchema), isValidToken, isAuthorized([roleEnum.ADMIN]), aboutController.createAuthUser);
+    .post(validation(aboutUsValidationsSchema), isValidToken, isAuthorized([roleEnum.ADMIN]), aboutController.createAboutUs);
 
 aboutUsRouter
     .route("/all")
