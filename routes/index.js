@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userRouter from "./userRoute.js";
+import aboutUsRouter from "./aboutRoute.js";
 
 const apiRouter = Router()
 
@@ -7,6 +8,10 @@ const ourRoutes = [
     {
         path : `/user`,
         router : userRouter,
+    },
+    {
+        path : `/aboutus`,
+        router : aboutUsRouter,
     },
 ]
 
