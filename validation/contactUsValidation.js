@@ -1,6 +1,6 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
-const contactValidation = Joi.object().keys({
+const contactValidationSchema = Joi.object().keys({
     email: Joi.string()
         .email()
         .required()
@@ -23,4 +23,4 @@ const contactValidation = Joi.object().keys({
     description: Joi.string().allow('').optional(),
 });
 
-module.exports = contactValidation;
+export default contactValidationSchema;
