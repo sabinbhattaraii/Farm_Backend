@@ -2,6 +2,7 @@ import { Router } from "express";
 import userRouter from "./userRoute.js";
 import aboutUsRouter from "./aboutRoute.js";
 import inquiryRouter from "./inquiryRoute.js";
+import contactRouter from "./contactRoute.js";
 
 const apiRouter = Router()
 
@@ -17,6 +18,10 @@ const ourRoutes = [
     {
         path : `/inquiry`,
         router : inquiryRouter,
+    },
+    {
+        path : `/contact`,
+        router : contactRouter,
     },
 ]
 
