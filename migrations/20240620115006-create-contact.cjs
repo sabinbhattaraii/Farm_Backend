@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
         validate: {
-          is: /^(?([0-9]{3}))?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+          is: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
         }
       },
       description: {
