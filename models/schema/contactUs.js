@@ -22,7 +22,7 @@ export const Contact = sequelize.define('Contact', {
     contact_number: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: false,
+        unique: true,
         validate: {
             is: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
         },
