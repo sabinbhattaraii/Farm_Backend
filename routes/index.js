@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userRouter from "./userRoute.js";
 import aboutUsRouter from "./aboutRoute.js";
+import inquiryRouter from "./inquiryRoute.js";
 
 const apiRouter = Router()
 
@@ -12,6 +13,10 @@ const ourRoutes = [
     {
         path : `/aboutus`,
         router : aboutUsRouter,
+    },
+    {
+        path : `/inquiry`,
+        router : inquiryRouter,
     },
 ]
 
