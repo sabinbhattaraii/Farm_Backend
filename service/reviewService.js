@@ -75,7 +75,7 @@ export async function updateReviewService(id, data, res) {
     }
 }
 
-export async function deletReviewService(id, res) {
+export async function deleteReviewService(id, res) {
     try {
         const recordToDelete = await Review.findByPk(id);
 
