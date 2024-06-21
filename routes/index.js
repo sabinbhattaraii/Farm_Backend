@@ -4,6 +4,7 @@ import aboutUsRouter from "./aboutRoute.js";
 import inquiryRouter from "./inquiryRoute.js";
 import contactRouter from "./contactRoute.js";
 import reviewRoute from "./reviewRoute.js";
+import categoryRouter from "./categoryRoute.js";
 
 const apiRouter = Router()
 
@@ -27,6 +28,10 @@ const ourRoutes = [
     {
         path : `/review`,
         router : reviewRoute,
+    },
+    {
+        path : `/category`,
+        router : categoryRouter,
     },
 ]
 
