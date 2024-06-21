@@ -3,6 +3,7 @@ import userRouter from "./userRoute.js";
 import aboutUsRouter from "./aboutRoute.js";
 import inquiryRouter from "./inquiryRoute.js";
 import contactRouter from "./contactRoute.js";
+import reviewRoute from "./reviewRoute.js";
 
 const apiRouter = Router()
 
@@ -22,6 +23,10 @@ const ourRoutes = [
     {
         path : `/contact`,
         router : contactRouter,
+    },
+    {
+        path : `/review`,
+        router : reviewRoute,
     },
 ]
 
