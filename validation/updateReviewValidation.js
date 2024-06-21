@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const reviewValidationSchema = Joi.object({
+const updateReviewValidationSchema = Joi.object({
     full_name: Joi.string()
         .trim()
         .min(2)
@@ -30,4 +30,4 @@ const reviewValidationSchema = Joi.object({
         })
 });
 
-export default reviewValidationSchema;
+export default updateReviewValidationSchema;
