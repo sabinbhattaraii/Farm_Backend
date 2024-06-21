@@ -4,3 +4,4 @@ export * as aboutService from './aboutService.js';
 export * as inquiryService from './inquiryService.js';
 export * as contactService from './contactService.js';
 export * as reviewService from './reviewService.js';
+export * as categoryService from './categoryService.js';
