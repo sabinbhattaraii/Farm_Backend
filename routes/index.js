@@ -6,6 +6,7 @@ import contactRouter from "./contactRoute.js";
 import reviewRoute from "./reviewRoute.js";
 import categoryRouter from "./categoryRoute.js";
 import productRouter from "./productRoute.js";
+import bookingRouter from "./bookingRoute.js";
 
 const apiRouter = Router()
 
@@ -37,6 +38,10 @@ const ourRoutes = [
     {
         path : `/product`,
         router : productRouter,
+    },
+    {
+        path : `/booking`,
+        router : bookingRouter,
     },
 ]
 
