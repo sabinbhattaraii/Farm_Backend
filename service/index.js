@@ -6,3 +6,4 @@ export * as contactService from './contactService.js';
 export * as reviewService from './reviewService.js';
 export * as categoryService from './categoryService.js';
 export * as productService from './productService.js';
+export * as bookingService from './bookingService.js';
