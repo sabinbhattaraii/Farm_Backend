@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../connectDb/dbPostgres.js";
-import { Users } from "./user.js"; // Ensure this path is correct
+import { Users } from "../schema/user.js";
 
 export const TokenDatas = sequelize.define(
   "TokenData",
@@ -53,7 +53,14 @@ export const TokenDatas = sequelize.define(
   }
 );
 
-// TokenDatas.belongsTo(Users, {
-//   foreignKey: "userId",
-//   as: "user",
-// });
+TokenDatas.belongsTo(Users, {
+  foreignKey: "userId",
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+});
+
+Users.hasMany(TokenDatas, {
+  foreignKey: "userId",
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
+});
