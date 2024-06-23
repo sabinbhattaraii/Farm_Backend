@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import { port,apiVersion } from './config/sconfig.js'
+import { port,apiVersion,staticFolder } from './config/sconfig.js'
 import apiRouter from './routes/index.js';
 import { sequelize } from './connectDb/dbPostgres.js';
 // import "./models/schema/associations.js";
@@ -21,6 +21,9 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(`${apiVersion}`,apiRouter)
+
+//for static files serving
+app.use(express.static(staticFolder));
 
 app.get('/',(req,res)=> {
     res.send('HomePage')
