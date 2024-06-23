@@ -7,41 +7,46 @@ import reviewRoute from "./reviewRoute.js";
 import categoryRouter from "./categoryRoute.js";
 import productRouter from "./productRoute.js";
 import bookingRouter from "./bookingRoute.js";
+import fileUploadRouter from "./fileUpload.js";
 
 const apiRouter = Router()
 
 const ourRoutes = [
     {
-        path : `/user`,
-        router : userRouter,
+        path: `/user`,
+        router: userRouter,
     },
     {
-        path : `/aboutus`,
-        router : aboutUsRouter,
+        path: `/aboutus`,
+        router: aboutUsRouter,
     },
     {
-        path : `/inquiry`,
-        router : inquiryRouter,
+        path: `/inquiry`,
+        router: inquiryRouter,
     },
     {
-        path : `/contact`,
-        router : contactRouter,
+        path: `/contact`,
+        router: contactRouter,
     },
     {
-        path : `/review`,
-        router : reviewRoute,
+        path: `/review`,
+        router: reviewRoute,
     },
     {
-        path : `/category`,
-        router : categoryRouter,
+        path: `/category`,
+        router: categoryRouter,
     },
     {
-        path : `/product`,
-        router : productRouter,
+        path: `/product`,
+        router: productRouter,
     },
     {
-        path : `/booking`,
-        router : bookingRouter,
+        path: `/booking`,
+        router: bookingRouter,
+    },
+    {
+        path: `/file`,
+        router: fileUploadRouter,
     },
 ]
 
