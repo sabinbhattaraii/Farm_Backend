@@ -6,3 +6,4 @@ export * as reviewController from "./reviewController.js";
 export * as categoryController from "./categoryController.js";
 export * as productController from "./productController.js";
 export * as bookingController from "./bookingController.js";
+export * as fileController from "./fileController.js";
