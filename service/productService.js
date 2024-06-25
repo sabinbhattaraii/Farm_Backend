@@ -42,9 +42,12 @@ export function getAllProductService({
     select = "",
 }) {
     const queryOptions = {
-        attributes: select,
         where: find,
     };
+
+    if (select) {
+        queryOptions.attributes = select.split(',').map(attr => attr.trim());
+    }
 
     if (sort) {
         queryOptions.order = [[sort]];
