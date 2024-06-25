@@ -43,12 +43,14 @@ export function getAllUserService({
   select = ""
 }) {
   const queryOptions = {
-    attributes: select,
     where: find,
   };
 
   if (sort) {
     queryOptions.order = [[sort]];
+  }
+  if (select) {
+    queryOptions.select = select;
   }
 
   if (limit) {
