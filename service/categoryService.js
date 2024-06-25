@@ -42,9 +42,12 @@ export function getAllCategoryService({
     select = "",
 }) {
     const queryOptions = {
-        attributes: select,
         where: find,
     };
+
+    if (select) {
+        queryOptions.select = select;
+    }
 
     if (sort) {
         queryOptions.order = [[sort]];
